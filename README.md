@@ -4,8 +4,8 @@ TauNBT is a C++ implementation of the NBT 19132 specification. More info about t
 
 
 Build Notes:
-*Use the C++11 standard. (flag -std=c++11 or -std=gnu++11)
-*Use libstdc++ (GNU C++ standard library. This should be default for most. flag -stdlib=libstdc++)
+* Use the C++11 standard. (flag -std=c++11 or -std=gnu++11)
+* Use libstdc++ (GNU C++ standard library. This should be default for most. flag -stdlib=libstdc++)
 
 --------------------------
 License
