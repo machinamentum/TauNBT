@@ -108,13 +108,16 @@ std::ostream& NBTOutputStream::operator<<(NBTTag tag)
 			}
 			case NBTTag::TAG_LIST:
 			{
-				int8_t tagId = tag.getList().at(0).getType();
-				*this << tagId;
-				int32_t l_len = tag.getList().size();
-				*this << l_len;
-				for(int i = 0; i < l_len; i++)
+				if(tag.getList().size() > 0)
 				{
-					*this << tag.getList().at(i);
+					int8_t tagId = tag.getList().at(0).getType();
+					*this << tagId;
+					int32_t l_len = tag.getList().size();
+					*this << l_len;
+					for(int i = 0; i < l_len; i++)
+					{
+						*this << tag.getList().at(i);
+					}
 				}
 				break;
 			}
