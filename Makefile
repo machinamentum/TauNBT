@@ -13,7 +13,7 @@ INC_DIR= -Iinclude
 CC=g++
 AR=ar
 LD=$(CC)
-CXXFLAGS=-std=c++11 -g $(INC_DIR)
+CXXFLAGS=-std=c++11 -stdlib=libstdc++ -g $(INC_DIR)
 
 
 $(TARGET):$(OBJS)
