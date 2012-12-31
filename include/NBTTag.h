@@ -51,6 +51,7 @@ protected:
 	std::string _string;
 	std::vector<NBTTag> list;
 	std::map<std::string, NBTTag> map;
+	std::vector<int32_t> _int_array;;
 	std::string name;
 	bool is_named = true;
 public:
@@ -65,6 +66,7 @@ public:
 	const static int8_t TAG_STRING = 8;
 	const static int8_t TAG_LIST = 9;
 	const static int8_t TAG_COMPOUND = 10;
+	const static int8_t TAG_INT_ARRAY = 11;
 	int8_t& getType();
 	int8_t& getByte();
 	int16_t& getShort();
@@ -76,6 +78,7 @@ public:
 	std::string& getString();
 	std::vector<NBTTag>& getList();
 	std::map<std::string, NBTTag>& getMap();
+	std::vector<int32_t>& getIntArray();;
 	std::string& getName();
 	bool& isNamed();
 };

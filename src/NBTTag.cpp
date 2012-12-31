@@ -41,6 +41,7 @@ std::vector<char>& NBTTag::getByteArray() { return _byte_array; };
 std::string& NBTTag::getString() { return _string; };
 std::vector<NBTTag>& NBTTag::getList() { return list; };
 std::map<std::string, NBTTag>& NBTTag::getMap() { return map; };
+std::vector<int32_t>& NBTTag::getIntArray() { return _int_array; }
 std::string& NBTTag::getName() { return name; };
 bool& NBTTag::isNamed() { return is_named; };
 

@@ -132,6 +132,16 @@ std::ostream& NBTOutputStream::operator<<(NBTTag tag)
 				*this << endTag;
 				break;
 			}
+			case NBTTag::TAG_INT_ARRAY:
+			{
+				int32_t len = tag.getIntArray().size();
+				*this << len;
+				for(int i = 0; i < len; i++)
+				{
+					*this << tag.getIntArray().at(i);
+				}
+				break;
+			}
 		}
 	}
 
