@@ -47,23 +47,23 @@ namespace TauNBT
 
 		public NBTTag ReadNBTTag ()
 		{
-			return ReadNamedTag();
+			return ReadTag();
 		}
 
-		public NBTTag ReadNamedTag (NBTTag.TagType type = NBTTag.TagType.Unknown)
+		public NBTTag ReadTag (NBTTag.TagType type = NBTTag.TagType.Unknown, bool named = true)
 		{
 			NBTTag tag = new NBTTag (type);
 			if (type == NBTTag.TagType.Unknown) {
 				tag.Type = (NBTTag.TagType)ReadByte ();
 			}
 
-
-
 			if (tag.Type != NBTTag.TagType.End) {
-				Int16 nameLength = ReadInt16();
-				tag.Name = new String(ReadChars(nameLength));
+				if(named) {
+					Int16 nameLength = ReadInt16();
+					tag.Name = new String(ReadChars(nameLength));
+				}
 #if DEBUG
-				Console.WriteLine(tag.Name + ": " + tag.Type);
+				Console.WriteLine((named ? tag.Name : "Unnamed") + ": " + tag.Type);
 #endif
 				ReadTagValue(tag);
 			}
@@ -72,23 +72,6 @@ namespace TauNBT
 			return tag;
 		}
 
-
-		public NBTTag ReadUnnamedTag(NBTTag.TagType type = NBTTag.TagType.Unknown) {
-			NBTTag tag = new NBTTag (type);
-			if (type == NBTTag.TagType.Unknown) {
-				tag.Type = (NBTTag.TagType)ReadByte ();
-			}
-
-			
-			if (tag.Type != NBTTag.TagType.End) {
-#if DEBUG
-				Console.WriteLine(tag.Type);
-#endif
-				ReadTagValue(tag);
-			}
-
-			return tag;
-		}
 
 		private void ReadTagValue (NBTTag tag)
 		{
@@ -122,14 +105,14 @@ namespace TauNBT
 				Int32 length = ReadInt32();
 				tag.List = new NBTTag[length];
 				for(int j = 0; j < length; j++) {
-					tag.List[j] = ReadUnnamedTag(tagType);
+					tag.List[j] = ReadTag(tagType, false);
 				}
 				break;
 			case NBTTag.TagType.Compound:
 				bool endTagFound = false;
 				while(!endTagFound)
 				{
-					NBTTag _tag = ReadNamedTag();
+					NBTTag _tag = ReadTag();
 					if(_tag.Type != NBTTag.TagType.End) {
 						tag.Compound[_tag.Name] = _tag;
 					}else{
@@ -138,7 +121,7 @@ namespace TauNBT
 				}
 				break;
 			case NBTTag.TagType.IntArray:
-				throw new NotImplementedException("IntArray");
+				throw new NotImplementedException(NBTTag.TagType.IntArray.ToString());
 				//break;
 			}
 		}
